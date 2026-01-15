@@ -12,7 +12,7 @@ typedef struct {
     int tropas;
 } Territorio;
 
-//Função para limpar o Buffer
+//Função para limpar o buffer de entrada após o "scanf"
 void limparBufferEntrada() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -32,9 +32,15 @@ int main () {
         printf("---- CADASTRANDO TERRITÓRIO %d ----\n", i+1);
         printf("Nome do território: ");
         fgets(territorios[totalTerritorios].nome, 30, stdin);
+        
+        //Uso da função "strcspn" para remover o a quebra de linha do fgets
+        territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")] = '\0';
 
         printf("Cor do Exército: ");
         fgets(territorios[totalTerritorios].cor, 10, stdin);
+        
+        //Uso da função "strcspn" para remover o a quebra de linha do fgets
+        territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")] = '\0';
 
         printf("Número de tropas: ");
         scanf ("%d", &territorios[totalTerritorios].tropas);
@@ -54,8 +60,8 @@ int main () {
 
     for (int i=0; i<totalTerritorios; i++) {
         printf("TERRITÓRIO %d: \n", i+1);
-        printf(" - Nome: %s", territorios[i].nome);
-        printf(" - Cor do Exército: %s", territorios[i].cor);
+        printf(" - Nome: %s\n", territorios[i].nome);
+        printf(" - Cor do Exército: %s\n", territorios[i].cor);
         printf(" - Tropas: %d\n\n", territorios[i].tropas);
 
     }
